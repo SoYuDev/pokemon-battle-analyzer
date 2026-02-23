@@ -3,7 +3,8 @@ import PokemonComp from "@/components/PokemonComp";
 export default function Home() {
   return (
     <main className="test">
-      <PokemonComp name="Pikachu"></PokemonComp>
+      <PokemonComp></PokemonComp>
+      <PokemonComp></PokemonComp>
     </main>
   );
 }

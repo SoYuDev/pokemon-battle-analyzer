@@ -7,3 +7,7 @@ body {
 .test {
   background-color: green;
 }
+
+.poke-nombre {
+  text-transform: capitalize;
+}
