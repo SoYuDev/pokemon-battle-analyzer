@@ -1,12 +1,19 @@
 import PokemonComp from "@/components/PokemonComp";
-import PokemonCompOld from "@/components/PokemonCompOld";
 
 export default function Home() {
   return (
-    <main className="test">
-      <PokemonComp></PokemonComp>
-      <PokemonComp></PokemonComp>
-      {/* <PokemonCompOld></PokemonCompOld> */}
-    </main>
+    <>
+    {/* TODO Create a parent component which wraps PokemonComp */}
+      <header>
+        <button>Start New Battle</button>
+        <h1>Pokemon 1 vs Pokemon 2</h1>
+      </header>
+      <main>
+        <PokemonComp></PokemonComp>
+        <PokemonComp></PokemonComp>
+      </main>
+      <p>Winner is the one with higher Attack stat!</p>
+      <button>Battle</button>
+    </>
   );
 }

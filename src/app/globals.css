@@ -1,13 +1,37 @@
 @import "tailwindcss";
 
 body {
-  /* background-color: rebeccapurple; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
 }
 
-.test {
-  /* background-color: green; */
+header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  text-align: center;
 }
 
 .poke-nombre {
   text-transform: capitalize;
+}
+
+button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  background-color: #ebebeb
 }

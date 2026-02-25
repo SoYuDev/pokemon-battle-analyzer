@@ -21,3 +21,8 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
 
 - SEO automático
   - Al dibujar la página en el servidor (SSR) antes de enviarsela al usuario, el robot de Google ve instantaneamente toda la información de los Pokemon. Con React normal la pantalla se cargaría en blanco inicialmente y tendría un peor posicionamiento.
+
+  ## TODO
+
+  Tengo un componente padre donde se hacen dos llamadas a la api o donde puedo usar Promise.all.
+  Este componente encapsula dos componentes Pokemon
