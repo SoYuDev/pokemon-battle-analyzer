@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 body {
-  background-color: rebeccapurple;
+  /* background-color: rebeccapurple; */
 }
 
 .test {
-  background-color: green;
+  /* background-color: green; */
 }
 
 .poke-nombre {

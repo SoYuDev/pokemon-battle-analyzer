@@ -6,7 +6,7 @@ export default function Home() {
     <main className="test">
       <PokemonComp></PokemonComp>
       <PokemonComp></PokemonComp>
-      <PokemonCompOld></PokemonCompOld>
+      {/* <PokemonCompOld></PokemonCompOld> */}
     </main>
   );
 }

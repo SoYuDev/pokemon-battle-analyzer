@@ -8,26 +8,35 @@ export default async function PokemonComp() {
 
   try {
     // La función espera hasta que no hagas el fetch.
-    // Esta función devuelve un objeto llamado Response donde está toda la respuesta HTTP
-    const answer = await fetch(errorUrl);
+    // Esta función devuelve un una Promesa de tipo Response donde está toda la respuesta HTTP
+    const response = await fetch(baseUrl);
+    // console.log(answer);
 
-    // Si la respuesta HTTP está entre 200 y 299
-    if (!answer.ok) {
+    // Si la respuesta HTTP NO está entre 200 y 299
+    if (!response.ok) {
       return <p>Error al cargar el pokemon</p>;
     }
 
     // "Abrimos" el body de la respuesta HTTP y lo pasamos a formato JSON
     // Aunque podemos pensar que el body ya viene en formato JSON, viene en un String por lo que
     // debemos de parsear todo eso a JSON.
-    const pokemon = await answer.json();
-    console.log(pokemon);
+    const pokemonData = await response.json();
+    console.log(pokemonData);
 
+    // const parsedPokemon: Pokemon = {
+    //   id: pokemonData.id,
+    //   name: pokemonData.name,
+    //   sprites: [pokemonData.sprites.front_default, pokemonData.sprites.back_default],
+    //   stats: {pokemonData.stats[1].base_stat}
+
+    // }
+    
     return (
       <div>
-        <h1 className="poke-nombre">{pokemon.name}</h1>
+        <h1 className="poke-nombre">{pokemonData.name}</h1>
         <img
-          src={pokemon.sprites.front_default}
-          alt={`${pokemon.name} image`}
+          src={pokemonData.sprites.front_default}
+          alt={`${pokemonData.name} image`}
         />
       </div>
     );
