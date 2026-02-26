@@ -7,7 +7,7 @@ export default async function PokemonComp() {
 
   try {
     const response = await fetch(baseUrl);
-    // console.log(answer);
+    console.log(response);
 
     // Si la respuesta HTTP NO está entre 200 y 299
     if (!response.ok) {

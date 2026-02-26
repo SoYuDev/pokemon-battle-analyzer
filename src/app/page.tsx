@@ -1,4 +1,5 @@
 import PokemonComp from "@/components/PokemonComp";
+import TestComp from "@/components/TestComp";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <main>
         <PokemonComp></PokemonComp>
         <PokemonComp></PokemonComp>
+        <TestComp></TestComp>
       </main>
       <p>Winner is the one with higher Attack stat!</p>
       <button>Battle</button>
