@@ -37,6 +37,20 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
   - Mejor rendimiento y organización para apps grandes
   - Zustand cubre lo que harias con Context + useReducer pero con menos codigo.
 
+  ## useEffect
+
+  Hook muy importante como useState, se ejecuta una vez como mínimo o cada vez que cambiamos algunas
+  de sus dependencias
+
+  ```typescript
+  useEffect(() => {
+    fetchRandomPokemon().then(setParsedPokemon);
+  }, []);
+  ```
+
+  La dependencias se especifican en el array (el segundo argumento) cada vez que cambien se,
+  se ejecutará de nuevo.
+
   ## TODO
 
   Tengo un componente padre donde se hacen dos llamadas a la api o donde puedo usar Promise.all.
