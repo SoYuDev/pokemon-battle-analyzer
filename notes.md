@@ -45,3 +45,5 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
 Usar zustand o redux o mobex para el gestor de estados
 Hacer peticiones y guardarlas
 Crear un archivo service que se encargue de manejar las peticiones
+
+React strict mode, usar axios

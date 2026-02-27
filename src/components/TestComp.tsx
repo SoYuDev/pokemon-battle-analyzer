@@ -7,6 +7,13 @@ export default function TestComp() {
   const { isFighting, toggleFight } = useBattleStore();
   console.log(`The value of isFighting is: ${isFighting}`);
 
+  function test() {
+    toggleFight();
+  }
+
+  // Otra manera de acceder al valor isFighting
+  const isFightingValue = useBattleStore((s) => s.isFighting);
+
   // Si descomento esto entra en un bucle infinito
   // toggleFight();
   // console.log(`The value of isFighting is: ${isFighting}`);
@@ -14,7 +21,7 @@ export default function TestComp() {
   return (
     <div>
       <h2>isFighting?: {isFighting}</h2>
-      <button onClick={toggleFight}>Toggle</button>
+      <button onClick={test}>Toggle</button>
     </div>
   );
 }
