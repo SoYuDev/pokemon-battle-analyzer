@@ -34,9 +34,17 @@ button {
   border-radius: 4px;
   cursor: pointer;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  background-color: #f2f2f2
+  background-color: #f2f2f2;
 }
 
-button:active {
+button:disabled {
+  background-color: pink;
+  cursor: default;
+  transform: none;
+  opacity: 0.1;
+}
+
+/* Cuando lo pulsamos y no está disabled */
+button:active:not(:disabled) {
   transform: translateY(2px);
 }

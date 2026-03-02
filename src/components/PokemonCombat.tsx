@@ -2,7 +2,7 @@
 
 import { useBattleStore } from "@/store/globalStore";
 import PokemonComp from "./PokemonComp";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function PokemonCombat() {
   // Obj destructuring
@@ -14,12 +14,34 @@ export default function PokemonCombat() {
     fetchPokemons,
   } = useBattleStore();
 
+  const [battleText, setBattleText] = useState("Battle");
+  const [isFightComputed, setFightComputed] = useState(false);
+
   useEffect(() => {
     fetchPokemons();
   }, []);
 
   function handleBattleButton() {
     toggleFight();
+    setFightComputed(false);
+    changeBattleButtonText();
+  }
+
+  function changeBattleButtonText() {
+    setTimeout(() => {
+      setBattleText("Fighting.");
+      setTimeout(() => {
+        setBattleText("Fighting..");
+        setTimeout(() => {
+          setBattleText("Fighting...");
+          setTimeout(() => {
+            setBattleText("Battle");
+            toggleFight();
+            setFightComputed(true);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }, 1000);
   }
 
   return (
@@ -28,6 +50,7 @@ export default function PokemonCombat() {
         <button
           onClick={fetchPokemons}
           style={{ backgroundColor: isFighting ? "red" : "white" }}
+          disabled={isFighting}
         >
           Start New Battle
         </button>
@@ -54,9 +77,16 @@ export default function PokemonCombat() {
       </main>
       <p>Winner is the one with higher Attack stat!</p>
       <button onClick={handleBattleButton} disabled={isFighting}>
-        Battle
+        {battleText}
       </button>
-      {isFighting ? <p>The winner is {pokemonWinner?.name}</p> : ""}
+      {isFightComputed ? (
+        <p>
+          The winner is{" "}
+          <span className="poke-nombre">{pokemonWinner?.name}</span>
+        </p>
+      ) : (
+        ""
+      )}
     </>
   );
 }
