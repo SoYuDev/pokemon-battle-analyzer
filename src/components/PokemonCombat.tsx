@@ -3,23 +3,14 @@
 import { useBattleStore } from "@/store/globalStore";
 import PokemonComp from "./PokemonComp";
 import { useEffect } from "react";
-import { Pokemon } from "@/types/pokemon";
 
 export default function PokemonCombat() {
   // Obj destructuring
-  const {
-    isFighting,
-    toggleFight,
-    pokemonLeft,
-    pokemonRight,
-    pokemonArray,
-    fetchBothPokemons,
-  } = useBattleStore();
+  const { isFighting, toggleFight, pokemonArray, fetchPokemons } =
+    useBattleStore();
 
   useEffect(() => {
-    if (!pokemonLeft || !pokemonRight) {
-      fetchBothPokemons();
-    }
+    fetchPokemons();
   }, []);
 
   function handleBattleButton() {
@@ -30,13 +21,14 @@ export default function PokemonCombat() {
     <>
       <header>
         <button
-          onClick={fetchBothPokemons}
+          onClick={fetchPokemons}
           style={{ backgroundColor: isFighting ? "red" : "white" }}
         >
           Start New Battle
         </button>
         <h1>
           {pokemonArray.map((poke, index) => (
+            // poke existe? devuelve su id, sino, devuelve undefined.
             <span className="poke-nombre" key={poke?.id}>
               {poke?.name}
               {/* Comprobración para ver si el pokemon evaluado es el último y poner o no un texto "vs" */}
@@ -49,7 +41,7 @@ export default function PokemonCombat() {
         {pokemonArray.length > 0 ? (
           pokemonArray.map((poke) => (
             // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui
-            <PokemonComp key={poke?.id} parsedPokemon={poke as Pokemon} />
+            <PokemonComp key={poke?.id} parsedPokemon={poke!} />
           ))
         ) : (
           <p>Cargando Pokemon...</p>

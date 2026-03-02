@@ -49,7 +49,7 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
   ```
 
   ```typescript
-    useEffect(() => {
+  useEffect(() => {
     if (!pokemonLeft || !pokemonRight) {
       fetchBothPokemons();
     }
@@ -59,20 +59,29 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
   La dependencias se especifican en el array (el segundo argumento) cada vez que cambien se,
   se ejecutará de nuevo.
 
+  ## Non-null Assertion Operator
 
+  Le decimos al compilador de TypeScript que la variable nunca va a ser null o undefined. En el
+  siguiente caso es mala práctica ya que ese valor puede llegar a ser null por lo que mejor es un
+  ternario.
 
-
-
-
-
-
-
+  ```typescript
+        <main>
+        {pokemonArray.length > 0 ? (
+          pokemonArray.map((poke) => (
+            // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui
+            <PokemonComp key={poke?.id} parsedPokemon={poke!} />
+          ))
+        ) : (
+          <p>Cargando Pokemon...</p>
+        )}
+      </main>
+  ```
 
   ## TODO
 
   Tengo un componente padre donde se hacen dos llamadas a la api o donde puedo usar Promise.all.
   Este componente encapsula dos componentes Pokemon
-  ````
 
 Usar zustand o redux o mobex para el gestor de estados
 Hacer peticiones y guardarlas
@@ -83,3 +92,5 @@ React strict mode, usar axios
 Almacenar los pokemons en la store
 Los componentes deben de consumir de la store la data
 añadir estilos
+
+Usar localStorage para mantener los Pokemon
