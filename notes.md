@@ -59,7 +59,7 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
   La dependencias se especifican en el array (el segundo argumento) cada vez que cambien se,
   se ejecutará de nuevo.
 
-  ## Non-null Assertion Operator
+  ## Non-null Assertion Operator -> poke!
 
   Le decimos al compilador de TypeScript que la variable nunca va a ser null o undefined. En el
   siguiente caso es mala práctica ya que ese valor puede llegar a ser null por lo que mejor es un
@@ -69,7 +69,7 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
         <main>
         {pokemonArray.length > 0 ? (
           pokemonArray.map((poke) => (
-            // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui
+            // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui (lo es)
             <PokemonComp key={poke?.id} parsedPokemon={poke!} />
           ))
         ) : (

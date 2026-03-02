@@ -6,8 +6,13 @@ import { useEffect } from "react";
 
 export default function PokemonCombat() {
   // Obj destructuring
-  const { isFighting, toggleFight, pokemonArray, fetchPokemons } =
-    useBattleStore();
+  const {
+    isFighting,
+    toggleFight,
+    pokemonArray,
+    pokemonWinner,
+    fetchPokemons,
+  } = useBattleStore();
 
   useEffect(() => {
     fetchPokemons();
@@ -48,7 +53,10 @@ export default function PokemonCombat() {
         )}
       </main>
       <p>Winner is the one with higher Attack stat!</p>
-      <button onClick={handleBattleButton}>Battle</button>
+      <button onClick={handleBattleButton} disabled={isFighting}>
+        Battle
+      </button>
+      {isFighting ? <p>The winner is {pokemonWinner?.name}</p> : ""}
     </>
   );
 }
