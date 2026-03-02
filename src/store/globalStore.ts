@@ -6,6 +6,7 @@ interface BattleState {
   isFighting: boolean;
   pokemonLeft: Pokemon | null;
   pokemonRight: Pokemon | null;
+  pokemonArray: (Pokemon | null)[];
   toggleFight: () => void;
   // Las funciones async siempre devuelven una Promesa aunque no estemos devolviendo los Pokemon.
   fetchBothPokemons: () => Promise<void>;
@@ -16,7 +17,8 @@ export const useBattleStore = create<BattleState>((set) => ({
   isFighting: false,
   pokemonLeft: null,
   pokemonRight: null,
-  
+  pokemonArray: [],
+
   toggleFight: () => set((state) => ({ isFighting: !state.isFighting })),
 
   fetchBothPokemons: async () => {
@@ -28,7 +30,8 @@ export const useBattleStore = create<BattleState>((set) => ({
       ]);
 
       set({ pokemonLeft: data1, pokemonRight: data2 });
-      
+
+      set({ pokemonArray: [data1, data2, data1] });
     } catch (error) {
       console.log("Error fetching Pokemons: ", error);
     }
