@@ -48,16 +48,38 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
   }, []);
   ```
 
+  ```typescript
+    useEffect(() => {
+    if (!pokemonLeft || !pokemonRight) {
+      fetchBothPokemons();
+    }
+  }, []);
+  ```
+
   La dependencias se especifican en el array (el segundo argumento) cada vez que cambien se,
   se ejecutará de nuevo.
+
+
+
+
+
+
+
+
+
 
   ## TODO
 
   Tengo un componente padre donde se hacen dos llamadas a la api o donde puedo usar Promise.all.
   Este componente encapsula dos componentes Pokemon
+  ````
 
 Usar zustand o redux o mobex para el gestor de estados
 Hacer peticiones y guardarlas
 Crear un archivo service que se encargue de manejar las peticiones
 
 React strict mode, usar axios
+
+Almacenar los pokemons en la store
+Los componentes deben de consumir de la store la data
+añadir estilos

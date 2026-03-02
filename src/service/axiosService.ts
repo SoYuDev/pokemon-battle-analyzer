@@ -4,9 +4,12 @@ import axios from "axios";
 const instance = axios.create({
   baseURL: "https://pokeapi.co/api/v2/pokemon/",
   method: "get",
+  params: {
+    ID: 123,
+  },
 });
 
 async function getPokemon() {
-  const response = await instance.get("2")
-  console.log(response.data)
+  const response = await instance.get("2");
+  console.log(response.data);
 }

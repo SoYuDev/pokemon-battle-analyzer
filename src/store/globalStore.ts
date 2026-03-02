@@ -1,24 +1,36 @@
+import { fetchRandomPokemon } from "@/service/pokemonService";
+import { Pokemon } from "@/types/pokemon";
 import { create } from "zustand";
 
 interface BattleState {
   isFighting: boolean;
+  pokemonLeft: Pokemon | null;
+  pokemonRight: Pokemon | null;
   toggleFight: () => void;
+  // Las funciones async siempre devuelven una Promesa aunque no estemos devolviendo los Pokemon.
+  fetchBothPokemons: () => Promise<void>;
 }
 
 export const useBattleStore = create<BattleState>((set) => ({
   // Initial state
   isFighting: false,
+  pokemonLeft: null,
+  pokemonRight: null,
+  
   toggleFight: () => set((state) => ({ isFighting: !state.isFighting })),
+
+  fetchBothPokemons: async () => {
+    set({ isFighting: false });
+    try {
+      const [data1, data2] = await Promise.all([
+        fetchRandomPokemon(),
+        fetchRandomPokemon(),
+      ]);
+
+      set({ pokemonLeft: data1, pokemonRight: data2 });
+      
+    } catch (error) {
+      console.log("Error fetching Pokemons: ", error);
+    }
+  },
 }));
-
-// interface CounterState {
-//   count: number;
-//   increment: () => void;
-//   decrement: () => void;
-// }
-
-// export const useCounterStore = create<CounterState>((set) => ({
-//   count: 0,
-//   increment: () => set((state) => ({ count: state.count + 1 })),
-//   decrement: () => set((state) => ({ count: state.count - 1 })),
-// }));
