@@ -1,27 +1,18 @@
-interface Stat {
+// Esta interface sirve tanto para las stats como para los tipos.
+interface NamedAPIResource {
   name: string;
   url: string;
 }
 
-interface Stats {
+interface PokemonStat {
   base_stat: number;
   effort: number;
-  stat: Stat;
+  stat: NamedAPIResource;
 }
 
-interface DataType {
-  name: string;
-  url: string;
-}
-
-interface Type {
+interface PokemonType {
   slot: number;
-  type: { name: string; url: string };
-}
-
-interface Types {
-  slot: number;
-  type: Type[];
+  type: NamedAPIResource;
 }
 
 export interface Pokemon {
@@ -29,7 +20,7 @@ export interface Pokemon {
   name: string;
   sprites: string[];
   // El ataque está embebido aquí
-  stats: Stats[];
+  stats: PokemonStat[];
   // Los tipos, del que necesitamos el primero está embebido aquí
-  types: Types[];
+  types: PokemonType[];
 }

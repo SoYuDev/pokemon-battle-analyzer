@@ -28,21 +28,26 @@ export default function PokemonCombat() {
     changeBattleButtonText();
   }
 
-  function changeBattleButtonText() {
-    setTimeout(() => {
-      setBattleText("Fighting.");
-      setTimeout(() => {
-        setBattleText("Fighting..");
-        setTimeout(() => {
-          setBattleText("Fighting...");
-          setTimeout(() => {
-            setBattleText("Battle");
-            toggleFight();
-            setFightComputed(true);
-          }, 1000);
-        }, 1000);
-      }, 1000);
-    }, 1000);
+  // Helper Method, almacenamos una arrow function. También tenemos la opción de usar setInterval()
+  const delay = (ms: number): Promise<void> =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  async function changeBattleButtonText() {
+    await delay(1000);
+    setBattleText("Fighting.");
+
+    await delay(1000);
+    setBattleText("Fighting..");
+
+    await delay(1000);
+    setBattleText("Fighting...");
+
+    await delay(1000);
+    setBattleText("Battle");
+
+    // Al final, ejecutamos el resto de la lógica
+    toggleFight();
+    setFightComputed(true);
   }
 
   return (

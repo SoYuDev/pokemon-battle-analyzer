@@ -83,8 +83,13 @@ export const useBattleStore = create<BattleState>((set, get) => ({
 
   fetchPokemonsByWinner: async () => {
     const winnerPok = get().pokemonWinner;
-    // const winnerType = winnerPok?.types[0].type.name
-    const winnerType = "water";
+    const winnerType = winnerPok?.types[0].type.name;
+
+    // Validate if winnerType exists...
+    if (!winnerType) {
+      console.log("Error getting winner's type.");
+      return;
+    }
 
     try {
       const [data1, data2, data3] = await Promise.all([

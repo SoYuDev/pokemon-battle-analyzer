@@ -94,3 +94,23 @@ Los componentes deben de consumir de la store la data
 añadir estilos
 
 Usar localStorage para mantener los Pokemon
+
+- FIX hardcoded winnerType on globalSotre fetchPokemonsByWinner method
+- Remove Non-null Assertion Operators in Pokemon Combat
+- Improve Styling
+- Use persist middleware with zustand
+- Añadir navbar / header
+- Refactorizar / Limpiar código (Por ejemplo lo del setTimeOut ...)
+- Cuando hago hover en las imágenes hay casos en los que el Pokemon no tiene back img, mejorar eso, es null
+
+## Cosas a destacar
+- Uso de axios
+- Uso de Arquitectura basada en componentes
+- Uso de React
+- Typescript para código robusto (Interfaces...)
+- Código flexible y escalable (Mostrar ejemplos)
+- Zundstand + middleware persist para localStorage
+- Arquitectura del proyecto siguiendo los principios SOLID
+- Web dinámica
+- Si puedo usar SCSS usarlo y destacarlo...
+- Control de Versiones (GitHub GitKraken)
