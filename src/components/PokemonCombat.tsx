@@ -66,6 +66,7 @@ export default function PokemonCombat() {
         </h1>
       </header>
       <main>
+        {/* Pokemon Components here */}
         {pokemonArray.length > 0 ? (
           pokemonArray.map((poke) => (
             // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui

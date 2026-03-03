@@ -2,6 +2,7 @@ import { Pokemon } from "@/types/pokemon";
 
 const axios = require("axios");
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
+const BASE_URL_TYPE = "https://pokeapi.co/api/v2/type/";
 
 export function generateRandomPokemonId(): number {
   return Math.floor(Math.random() * 1025) + 1;
@@ -40,5 +41,27 @@ export async function customAxiosWithId(
 
 export async function fetchRandomPokemon(): Promise<Pokemon | null> {
   const randomPokemonId = generateRandomPokemonId();
+  fetchRandomPokemonByType("fire");
   return customAxiosWithId(BASE_URL, randomPokemonId);
+}
+
+export async function fetchPokemonByUrl(url: string): Promise<Pokemon | null> {
+  const response = await axios.get(url);
+  return parsePokemonData(response.data);
+}
+
+export async function fetchRandomPokemonByType(
+  pokeType: string,
+): Promise<Pokemon | null> {
+  const response = await axios.get(`${BASE_URL_TYPE}${pokeType}`);
+
+  // No se puede leer esta propiedad, no existe en el JSON.
+  // console.log(response.data.types[0].type.url);
+  let pokemonLengthByType = response.data.pokemon.length;
+  let randomNumber = Math.floor(Math.random() * pokemonLengthByType) + 1;
+  console.log(response.data.pokemon[randomNumber]);
+  console.log(response.data.pokemon[randomNumber].pokemon.name);
+  // Obtener la url del pokemon (lo que nos interesa)
+  console.log(response.data.pokemon[randomNumber].pokemon.url);
+  return fetchPokemonByUrl(response.data.pokemon[randomNumber].pokemon.url);
 }
