@@ -1,3 +1,4 @@
+import { getAttack, getPrimaryType } from "@/service/poke.utils";
 import {
   fetchRandomPokemon,
   fetchRandomPokemonByType,
@@ -7,9 +8,9 @@ import { create } from "zustand";
 
 interface BattleState {
   isFighting: boolean;
-  pokemonArray: (Pokemon | null)[];
+  pokemonArrayToCombat: (Pokemon | null)[];
   pokemonWinner: Pokemon | null;
-  pokemonArrayByType: (Pokemon | null)[];
+  pokemonWinnerArrayByType: (Pokemon | null)[];
   toggleFight: () => void;
   // Las funciones async siempre devuelven una Promesa aunque no estemos devolviendo los Pokemon.
   fetchPokemons: () => Promise<void>;
@@ -20,9 +21,9 @@ interface BattleState {
 export const useBattleStore = create<BattleState>((set, get) => ({
   // Initial state
   isFighting: false,
-  pokemonArray: [],
+  pokemonArrayToCombat: [],
   pokemonWinner: null,
-  pokemonArrayByType: [],
+  pokemonWinnerArrayByType: [],
 
   toggleFight: () => set((state) => ({ isFighting: !state.isFighting })),
 
@@ -34,8 +35,8 @@ export const useBattleStore = create<BattleState>((set, get) => ({
         fetchRandomPokemon(),
       ]);
 
-      set({ pokemonArray: [data1, data2] });
-      console.log(get().pokemonArray);
+      set({ pokemonArrayToCombat: [data1, data2] });
+      console.log(get().pokemonArrayToCombat);
 
       get().calculateWinner();
     } catch (error) {
@@ -44,62 +45,66 @@ export const useBattleStore = create<BattleState>((set, get) => ({
   },
 
   calculateWinner: () => {
-    const misPokemons = get().pokemonArray;
+    const fightingPokemons = get().pokemonArrayToCombat;
 
-    // Inicializamos array vacío, normalmente tendremos un único ganador, pero puede darse el caso
-    // de que los Pokemon evaluados tengan el mismo ataque y ataque especial, dandose un empate.
-    const winnerPokemonArray: Pokemon[] = [];
+    if (!fightingPokemons || fightingPokemons.length === 0) {
+      console.log("Error, no hay pokemons en la lista...");
+      return;
+    }
 
-    if (misPokemons.length > 0) {
-      // Eliminamos los posibles pokemons que sean nulos de la lista.
-      const filteredPokemons: Pokemon[] = misPokemons.filter(
-        (poke) => poke !== null,
-      );
+    // Eliminamos los posibles pokemons que sean nulos de la lista.
+    const filteredPokemons: Pokemon[] = fightingPokemons.filter(
+      (poke) => poke !== null,
+    );
 
-      /*
+    if (filteredPokemons.length === 0) return;
+
+    /*
       Pasamos como valor inicial (acummulator) el primer Pokemon de la lista, durante la 
       iteración va a ir comprobando si el pokemon pasado tiene más o menos ataque que el actual
       en función del resultado el acumulador será uno u otro.
       */
-      const pokemonWinner = filteredPokemons.reduce(
-        (accumulator, currentPokemon) => {
-          return currentPokemon.stats[1].base_stat >
-            accumulator.stats[1].base_stat
-            ? currentPokemon
-            : accumulator;
-        },
-        filteredPokemons[0],
-      );
-      console.log("The winner is...", pokemonWinner.name);
-      set({ pokemonWinner: pokemonWinner });
+    const pokemonWinner = filteredPokemons.reduce(
+      (accumulator, currentPokemon) => {
+        return getAttack(currentPokemon) > getAttack(accumulator)
+          ? currentPokemon
+          : accumulator;
+      },
+      filteredPokemons[0],
+    );
 
-      console.log("WINNER: ", pokemonWinner);
+    console.log("WINNER: ", pokemonWinner);
+    set({ pokemonWinner: pokemonWinner });
 
-      get().fetchPokemonsByWinner();
-    } else {
-      console.log("Error, no hay pokemons en la lista...");
-    }
+    get().fetchPokemonsByWinner();
   },
 
   fetchPokemonsByWinner: async () => {
     const winnerPok = get().pokemonWinner;
-    const winnerType = winnerPok?.types[0].type.name;
 
-    // Validate if winnerType exists...
+    if (!winnerPok) return;
+
+    const winnerType = getPrimaryType(winnerPok);
+
     if (!winnerType) {
       console.log("Error getting winner's type.");
       return;
     }
 
     try {
-      const [data1, data2, data3] = await Promise.all([
-        fetchRandomPokemonByType(winnerType),
-        fetchRandomPokemonByType(winnerType),
-        fetchRandomPokemonByType(winnerType),
-      ]);
+      const POKEMONS_TO_FETCH = 3;
 
-      set({ pokemonArrayByType: [data1, data2, data3] });
-      console.log("POKEMONS BY TYPE", get().pokemonArrayByType);
+      // Create Array of Promises from specified number
+      const fetchPromises: Promise<Pokemon | null>[] = Array.from(
+        { length: POKEMONS_TO_FETCH },
+        () => fetchRandomPokemonByType(winnerType),
+      );
+
+      const newPokemonsArray: (Pokemon | null)[] =
+        await Promise.all(fetchPromises);
+      set({ pokemonWinnerArrayByType: newPokemonsArray });
+
+      console.log("POKEMONS BY TYPE", get().pokemonWinnerArrayByType);
     } catch (error) {
       console.log("Error fetching Pokemons: ", error);
     }

@@ -67,8 +67,8 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
 
   ```typescript
         <main>
-        {pokemonArray.length > 0 ? (
-          pokemonArray.map((poke) => (
+        {pokemonArrayToCombat.length > 0 ? (
+          pokemonArrayToCombat.map((poke) => (
             // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui (lo es)
             <PokemonComp key={poke?.id} parsedPokemon={poke!} />
           ))

@@ -9,9 +9,9 @@ export default function PokemonCombat() {
   const {
     isFighting,
     toggleFight,
-    pokemonArray,
-    pokemonArrayByType,
+    pokemonArrayToCombat,
     pokemonWinner,
+    pokemonWinnerArrayByType,
     fetchPokemons,
   } = useBattleStore();
 
@@ -61,20 +61,20 @@ export default function PokemonCombat() {
           Start New Battle
         </button>
         <h1>
-          {pokemonArray.map((poke, index) => (
+          {pokemonArrayToCombat.map((poke, index) => (
             // poke existe? devuelve su id, sino, devuelve undefined.
             <span className="poke-nombre" key={poke?.id}>
               {poke?.name}
               {/* Comprobración para ver si el pokemon evaluado es el último y poner o no un texto "vs" */}
-              {index < pokemonArray.length - 1 ? " vs " : ""}
+              {index < pokemonArrayToCombat.length - 1 ? " vs " : ""}
             </span>
           ))}
         </h1>
       </header>
       <main>
         {/* Pokemon Components here */}
-        {pokemonArray.length > 0 ? (
-          pokemonArray.map((poke) => (
+        {pokemonArrayToCombat.length > 0 ? (
+          pokemonArrayToCombat.map((poke) => (
             // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui
             <PokemonComp key={poke?.id} parsedPokemon={poke!} />
           ))
@@ -95,8 +95,8 @@ export default function PokemonCombat() {
             <span className="poke-nombre">{pokemonWinner?.name}</span>
           </p>
           <div className="winner-types">
-            {pokemonArrayByType.length > 0 ? (
-              pokemonArrayByType.map((poke) => (
+            {pokemonWinnerArrayByType.length > 0 ? (
+              pokemonWinnerArrayByType.map((poke) => (
                 // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui
                 <PokemonComp key={poke?.id} parsedPokemon={poke!} />
               ))
