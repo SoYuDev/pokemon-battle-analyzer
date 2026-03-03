@@ -10,6 +10,7 @@ export default function PokemonCombat() {
     isFighting,
     toggleFight,
     pokemonArray,
+    pokemonArrayByType,
     pokemonWinner,
     fetchPokemons,
   } = useBattleStore();
@@ -80,11 +81,25 @@ export default function PokemonCombat() {
       <button onClick={handleBattleButton} disabled={isFighting}>
         {battleText}
       </button>
+
+      {/* Hasta que no ocurren los setTimeOuts no se muestra nada */}
       {isFightComputed ? (
-        <p>
-          The winner is{" "}
-          <span className="poke-nombre">{pokemonWinner?.name}</span>
-        </p>
+        <div>
+          <p>
+            The winner is{" "}
+            <span className="poke-nombre">{pokemonWinner?.name}</span>
+          </p>
+          <div className="winner-types">
+            {pokemonArrayByType.length > 0 ? (
+              pokemonArrayByType.map((poke) => (
+                // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui
+                <PokemonComp key={poke?.id} parsedPokemon={poke!} />
+              ))
+            ) : (
+              <p>Cargando Pokemon...</p>
+            )}
+          </div>
+        </div>
       ) : (
         ""
       )}

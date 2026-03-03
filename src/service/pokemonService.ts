@@ -41,7 +41,6 @@ export async function customAxiosWithId(
 
 export async function fetchRandomPokemon(): Promise<Pokemon | null> {
   const randomPokemonId = generateRandomPokemonId();
-  fetchRandomPokemonByType("fire");
   return customAxiosWithId(BASE_URL, randomPokemonId);
 }
 
@@ -50,18 +49,19 @@ export async function fetchPokemonByUrl(url: string): Promise<Pokemon | null> {
   return parsePokemonData(response.data);
 }
 
+// Recogeremos el tipo del ganador a partir de la globalStore.
 export async function fetchRandomPokemonByType(
   pokeType: string,
 ): Promise<Pokemon | null> {
   const response = await axios.get(`${BASE_URL_TYPE}${pokeType}`);
 
-  // No se puede leer esta propiedad, no existe en el JSON.
+  // No se puede leer esta propiedad que se indica en el doc, no existe en el JSON.
   // console.log(response.data.types[0].type.url);
-  let pokemonLengthByType = response.data.pokemon.length;
-  let randomNumber = Math.floor(Math.random() * pokemonLengthByType) + 1;
-  console.log(response.data.pokemon[randomNumber]);
-  console.log(response.data.pokemon[randomNumber].pokemon.name);
-  // Obtener la url del pokemon (lo que nos interesa)
-  console.log(response.data.pokemon[randomNumber].pokemon.url);
+
+  const pokemonLengthByType = response.data.pokemon.length;
+  const randomNumber = Math.floor(Math.random() * pokemonLengthByType) + 1;
+
+
+// A partir de esta llamada a la API, solo podemos acceder a la URL donde estan sus datos
   return fetchPokemonByUrl(response.data.pokemon[randomNumber].pokemon.url);
 }

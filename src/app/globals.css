@@ -29,6 +29,20 @@ main {
   text-transform: capitalize;
 }
 
+p {
+  text-align: center;
+}
+
+.winner-types {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+}
+
 button {
   padding: 8px 12px;
   border-radius: 4px;

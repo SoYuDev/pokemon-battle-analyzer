@@ -9,6 +9,11 @@ interface Stats {
   stat: Stat;
 }
 
+interface DataType {
+  name: string;
+  url: string;
+}
+
 interface Type {
   slot: number;
   type: { name: string; url: string };

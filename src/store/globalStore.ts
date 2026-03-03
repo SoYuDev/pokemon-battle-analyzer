@@ -1,4 +1,7 @@
-import { fetchRandomPokemon } from "@/service/pokemonService";
+import {
+  fetchRandomPokemon,
+  fetchRandomPokemonByType,
+} from "@/service/pokemonService";
 import { Pokemon } from "@/types/pokemon";
 import { create } from "zustand";
 
@@ -6,10 +9,12 @@ interface BattleState {
   isFighting: boolean;
   pokemonArray: (Pokemon | null)[];
   pokemonWinner: Pokemon | null;
+  pokemonArrayByType: (Pokemon | null)[];
   toggleFight: () => void;
   // Las funciones async siempre devuelven una Promesa aunque no estemos devolviendo los Pokemon.
   fetchPokemons: () => Promise<void>;
   calculateWinner: () => void;
+  fetchPokemonsByWinner: () => Promise<void>;
 }
 
 export const useBattleStore = create<BattleState>((set, get) => ({
@@ -17,6 +22,7 @@ export const useBattleStore = create<BattleState>((set, get) => ({
   isFighting: false,
   pokemonArray: [],
   pokemonWinner: null,
+  pokemonArrayByType: [],
 
   toggleFight: () => set((state) => ({ isFighting: !state.isFighting })),
 
@@ -66,8 +72,31 @@ export const useBattleStore = create<BattleState>((set, get) => ({
       );
       console.log("The winner is...", pokemonWinner.name);
       set({ pokemonWinner: pokemonWinner });
+
+      console.log("WINNER: ", pokemonWinner);
+
+      get().fetchPokemonsByWinner();
     } else {
       console.log("Error, no hay pokemons en la lista...");
+    }
+  },
+
+  fetchPokemonsByWinner: async () => {
+    const winnerPok = get().pokemonWinner;
+    // const winnerType = winnerPok?.types[0].type.name
+    const winnerType = "water";
+
+    try {
+      const [data1, data2, data3] = await Promise.all([
+        fetchRandomPokemonByType(winnerType),
+        fetchRandomPokemonByType(winnerType),
+        fetchRandomPokemonByType(winnerType),
+      ]);
+
+      set({ pokemonArrayByType: [data1, data2, data3] });
+      console.log("POKEMONS BY TYPE", get().pokemonArrayByType);
+    } catch (error) {
+      console.log("Error fetching Pokemons: ", error);
     }
   },
 }));
