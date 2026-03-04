@@ -1,5 +1,6 @@
 import { Pokemon } from "@/types/pokemon";
 import { useState } from "react";
+import TypeIcon from "./TypeIcon";
 // Pasamos una variable, parsedPokemon que va a ser de tipo Pokemon
 export default function PokemonComp({
   parsedPokemon,
@@ -26,14 +27,20 @@ export default function PokemonComp({
         target="_blank"
       >
         <img
+        className="poke-image"
           src={imgToShow}
           alt={`${parsedPokemon.name} image`}
-          loading="lazy"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           style={{ cursor: "pointer", transition: "all 0.3s ease" }}
         />
       </a>
+
+      <div className="poke-types-container">
+        {parsedPokemon.types.map((typeObj) => (
+          <TypeIcon key={typeObj.type.name} typeName={typeObj.type.name} />
+        ))}
+      </div>
 
       <p>{`HP: ${parsedPokemon.stats[0].base_stat}`}</p>
     </div>

@@ -152,6 +152,10 @@ sea para hacer un fetch y rellenar pokemonArrayToCombat
 Son útiles para desacoplar la lógica de un componente y reutilizarla si es necesario.
 Deben empezar por use para que React los identifique.
 
+- No se pueden llamar dentro de if o for
+- Tienen que estar siempre en la parte de más arriba del componente
+- Se ejecutan exactamente en el orden en el que están puestos
+
 ## TODO
 
 Tengo un componente padre donde se hacen dos llamadas a la api o donde puedo usar Promise.all.
