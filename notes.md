@@ -110,7 +110,7 @@ Next.js pinta la página en un servidor y luego manda el HTML al navegador. Aqu�
 
 ### Hydration Mismatch
 
-El problema que teniamos antes del commit "X" era el siguiente:
+El problema que teniamos antes del commit "cae4818" era el siguiente:
 
 1. El componente nace: Next.js monta el componente. Como el servidor no tiene localStorage el estado
    inicial es un Array vacío.
@@ -124,6 +124,33 @@ El problema que teniamos antes del commit "X" era el siguiente:
 ** Al añadir la variable isHydrated obligamos a esperar a que Zustand obtenga los datos.
 Si no hay datos, entonces si se hará una llamada a la API.
 **
+
+## Flujo del programa.
+
+### Primer Render
+
+- isHydrated: false
+- Si no tenemos información en el localStorage, pokemonArrayToCombat estará vacío.
+- Si isHydrated es false, el componente devuelve un texto de error
+
+Después, se ejecutara el useEffect que establece isHydrated a true, este use effect se ejecuta una
+vez al tener las dependencias vacías. Al cambiar el estado, se vuelve a renderizar el componente.
+
+### Segundo Render
+
+- isHydrated: true
+  Por lo que se cargará todo el HTML.
+
+El segundo useEffect se ejecuta cada vez que cambia algo en sus dependencias, como hemos cambiado
+isHydrated se dispara.
+
+Este useEffect tiene sus validaciones, comprueba que isHydrated sea false y que pokemonArrayToCombat
+sea para hacer un fetch y rellenar pokemonArrayToCombat
+
+## Custom Hooks
+
+Son útiles para desacoplar la lógica de un componente y reutilizarla si es necesario.
+Deben empezar por use para que React los identifique.
 
 ## TODO
 
