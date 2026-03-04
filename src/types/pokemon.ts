@@ -21,6 +21,6 @@ export interface Pokemon {
   sprites: string[];
   // El ataque está embebido aquí
   stats: PokemonStat[];
-  // Los tipos, del que necesitamos el primero está embebido aquí
+  // Los tipos, del que necesitamos el primero, está embebido aquí
   types: PokemonType[];
 }

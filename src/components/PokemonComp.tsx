@@ -16,7 +16,7 @@ export default function PokemonComp({
   const imgToShow =
     isHovered && parsedPokemon.sprites[1]
       ? parsedPokemon.sprites[1]
-      : parsedPokemon.sprites[0];
+      : parsedPokemon.sprites[0] || fallbackImage;
 
   return (
     <div>

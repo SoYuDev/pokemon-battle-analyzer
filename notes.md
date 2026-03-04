@@ -78,10 +78,57 @@ Es un componente que envuelve a otros, se mantiene fijo y sin rencargar mientras
       </main>
   ```
 
-  ## TODO
+## Zustand persist middleware
 
-  Tengo un componente padre donde se hacen dos llamadas a la api o donde puedo usar Promise.all.
-  Este componente encapsula dos componentes Pokemon
+De manera automática hace lo siguiente:
+
+- Al hacer un set para cambiar un dato, coge ese dato y lo mete en el localStorage
+- Cuando carga la página lee el localStorage y sobreescribe los datos con los que tenía
+
+### partialize
+
+Nos permite especificar que datos queremos guardar exactamente
+
+```typescript
+    // 3. Opciones de configuración del persist
+    {
+      name: "pokemon-battle-storage", // Nombre de la key en el LocalStorage
+      // partialize es un filtro en el que especificaos qué variables queremos
+      partialize: (state) => ({
+        // Guardamos solo los datos, omitiendo el isFighting
+        pokemonArrayToCombat: state.pokemonArrayToCombat,
+        pokemonWinner: state.pokemonWinner,
+        pokemonWinnerArrayByType: state.pokemonWinnerArrayByType,
+        isFightComputed: state.isFightComputed,
+      }),
+    },
+```
+
+## Resolución de problemas con Next.js y Zustand
+
+Next.js pinta la página en un servidor y luego manda el HTML al navegador. Aquí está el conflicto.
+
+### Hydration Mismatch
+
+El problema que teniamos antes del commit "X" era el siguiente:
+
+1. El componente nace: Next.js monta el componente. Como el servidor no tiene localStorage el estado
+   inicial es un Array vacío.
+
+2. Antes de crear el semáforo isHydrated se disparaba la petición a la API
+
+3. Zustand empieza a leer el localStorage y coloca los guarda en pantalla.
+
+4. La peticion que hicimos en el paso 2 responde, sobrescribiendo los datos del localStorage
+
+** Al añadir la variable isHydrated obligamos a esperar a que Zustand obtenga los datos.
+Si no hay datos, entonces si se hará una llamada a la API.
+**
+
+## TODO
+
+Tengo un componente padre donde se hacen dos llamadas a la api o donde puedo usar Promise.all.
+Este componente encapsula dos componentes Pokemon
 
 Usar zustand o redux o mobex para el gestor de estados
 Hacer peticiones y guardarlas
@@ -104,6 +151,7 @@ Usar localStorage para mantener los Pokemon
 - Cuando hago hover en las imágenes hay casos en los que el Pokemon no tiene back img, mejorar eso, es null
 
 ## Cosas a destacar
+
 - Uso de axios
 - Uso de Arquitectura basada en componentes
 - Uso de React
@@ -114,3 +162,7 @@ Usar localStorage para mantener los Pokemon
 - Web dinámica
 - Si puedo usar SCSS usarlo y destacarlo...
 - Control de Versiones (GitHub GitKraken)
+
+```
+
+```

@@ -5,7 +5,6 @@ import PokemonComp from "./PokemonComp";
 import { useEffect, useState } from "react";
 
 export default function PokemonCombat() {
-  // Obj destructuring
   const {
     isFighting,
     toggleFight,
@@ -13,14 +12,27 @@ export default function PokemonCombat() {
     pokemonWinner,
     pokemonWinnerArrayByType,
     fetchPokemons,
+    isFightComputed, // Viene de la store
+    setFightComputed, // Viene de la store
   } = useBattleStore();
 
   const [battleText, setBattleText] = useState("Battle");
-  const [isFightComputed, setFightComputed] = useState(false);
+
+  // TRUCO DE NEXT.JS: Esperar a leer el LocalStorage
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    fetchPokemons();
+    // Cuando el componente se monta en el navegador, indicamos que ya podemos leer la memoria
+    setIsHydrated(true);
   }, []);
+
+  useEffect(() => {
+    // SOLO llamamos a fetchPokemons si ya hemos leído la memoria (isHydrated)
+    // Y el array de pokémons está realmente vacío.
+    if (isHydrated && pokemonArrayToCombat.length === 0) {
+      fetchPokemons();
+    }
+  }, [isHydrated, pokemonArrayToCombat.length, fetchPokemons]);
 
   function handleBattleButton() {
     toggleFight();
@@ -45,9 +57,13 @@ export default function PokemonCombat() {
     await delay(1000);
     setBattleText("Battle");
 
-    // Al final, ejecutamos el resto de la lógica
     toggleFight();
     setFightComputed(true);
+  }
+
+  // Si Next.js aún no ha cargado los datos de memoria, evitamos pintar la pantalla rota
+  if (!isHydrated) {
+    return <p>Cargando LocalStorage...</p>;
   }
 
   return (
@@ -62,32 +78,34 @@ export default function PokemonCombat() {
         </button>
         <h1>
           {pokemonArrayToCombat.map((poke, index) => (
-            // poke existe? devuelve su id, sino, devuelve undefined.
             <span className="poke-nombre" key={poke?.id}>
               {poke?.name}
-              {/* Comprobración para ver si el pokemon evaluado es el último y poner o no un texto "vs" */}
               {index < pokemonArrayToCombat.length - 1 ? " vs " : ""}
             </span>
           ))}
         </h1>
       </header>
       <main>
-        {/* Pokemon Components here */}
         {pokemonArrayToCombat.length > 0 ? (
-          pokemonArrayToCombat.map((poke) => (
-            // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui
-            <PokemonComp key={poke?.id} parsedPokemon={poke!} />
-          ))
+          pokemonArrayToCombat.map((poke) => {
+            if (!poke) return null;
+            return <PokemonComp key={poke.id} parsedPokemon={poke} />;
+          })
         ) : (
           <p>Cargando Pokemon...</p>
         )}
       </main>
       <p>Winner is the one with higher Attack stat!</p>
-      <button onClick={handleBattleButton} disabled={isFighting}>
+
+      {/* Si la batalla ya se calculó, deshabilitamos el botón también */}
+      <button
+        onClick={handleBattleButton}
+        disabled={isFighting || isFightComputed}
+      >
         {battleText}
       </button>
 
-      {/* Hasta que no ocurren los setTimeOuts no se muestra nada */}
+      {/* Usamos el isFightComputed de la Store Global */}
       {isFightComputed ? (
         <div>
           <p>
@@ -96,10 +114,10 @@ export default function PokemonCombat() {
           </p>
           <div className="winner-types">
             {pokemonWinnerArrayByType.length > 0 ? (
-              pokemonWinnerArrayByType.map((poke) => (
-                // Entiendo que el casteo es mala práctica deberiamos de poner un ternario aqui
-                <PokemonComp key={poke?.id} parsedPokemon={poke!} />
-              ))
+              pokemonWinnerArrayByType.map((poke) => {
+                if (!poke) return null;
+                return <PokemonComp key={poke.id} parsedPokemon={poke} />;
+              })
             ) : (
               <p>Cargando Pokemon...</p>
             )}
