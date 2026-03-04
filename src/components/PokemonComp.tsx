@@ -8,14 +8,23 @@ export default function PokemonComp({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const imgToShow = isHovered
-    ? parsedPokemon.sprites[1]
-    : parsedPokemon.sprites[0];
+  // Imagen que se mostrará en caso de que el Pokemon no tenga imagen frontal.
+  const fallbackImage =
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png";
+
+  // Comprobamos si tiene backSprite, si no tiene siempre se mostrará el frontal.
+  const imgToShow =
+    isHovered && parsedPokemon.sprites[1]
+      ? parsedPokemon.sprites[1]
+      : parsedPokemon.sprites[0];
 
   return (
     <div>
       <h1 className="poke-nombre">{parsedPokemon.name}</h1>
-      <a href={`https://www.pokemon.com/us/pokedex/${parsedPokemon.name}`} target="_blank">
+      <a
+        href={`https://www.pokemon.com/us/pokedex/${parsedPokemon.name}`}
+        target="_blank"
+      >
         <img
           src={imgToShow}
           alt={`${parsedPokemon.name} image`}
