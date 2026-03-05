@@ -35,7 +35,7 @@ export function useBattleAnimation(
     confetti({
       particleCount: 200,
       spread: 120, // Angulo apertura
-      origin: { y: 0.65 },
+      origin: { y: 0.75 },
       scalar: 1.2, // Escala el tamaño de los papeles
       ticks: 500, // Duración
       gravity: 0.8, // Caen un poco más suavemente

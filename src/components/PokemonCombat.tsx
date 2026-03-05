@@ -39,7 +39,7 @@ export default function PokemonCombat() {
       <div className="battle-menu">
         <button
           onClick={fetchPokemons}
-          style={{ backgroundColor: isFighting ? "red" : "white" }}
+          style={{ backgroundColor: isFighting ? "red" : "#fff" }}
           disabled={isFighting}
         >
           Start New Battle

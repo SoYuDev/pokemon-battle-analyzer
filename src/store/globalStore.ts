@@ -5,7 +5,7 @@ import {
 } from "@/service/pokemonService";
 import { Pokemon } from "@/types/pokemon";
 import { create } from "zustand";
-import { persist } from "zustand/middleware"; // 1. Importamos persist
+import { persist } from "zustand/middleware"; // Importamos persist
 
 interface BattleState {
   isFighting: boolean;
@@ -44,7 +44,7 @@ export const useBattleStore = create<BattleState>()(
           ]);
 
           set({ pokemonArrayToCombat: [data1, data2] });
-          console.log(get().pokemonArrayToCombat);
+          console.log("Pokemons que van a combatir: ", get().pokemonArrayToCombat);
 
           get().calculateWinner();
         } catch (error) {

@@ -51,9 +51,10 @@ button {
 
   &:disabled {
     background-color: $btn-disabled;
+    color: black;
     cursor: default;
     transform: none;
-    opacity: 0.1;
+    opacity: 0.6;
   }
 
   &:active:not(:disabled) {

@@ -32,7 +32,6 @@ export default function PokemonComp({
           alt={`${parsedPokemon.name} image`}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          style={{ cursor: "pointer", transition: "all 0.3s ease" }}
         />
       </a>
 
