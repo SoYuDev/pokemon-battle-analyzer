@@ -33,10 +33,14 @@ export function useBattleAnimation(
     setFightComputed(true);
 
     confetti({
-      particleCount: 150, // Cantidad de papelitos
-      spread: 80, // Cuánto se esparcen
-      origin: { y: 0.6 }, // De dónde salen (0.6 es un poco más abajo de la mitad de la pantalla)
-      colors: ["#FF0000", "#FFFFFF", "#0000FF", "#FFD700"], // Opcional: Colores de Pokémon
+      particleCount: 200,
+      spread: 120, // Angulo apertura
+      origin: { y: 0.65 },
+      scalar: 1.2, // Escala el tamaño de los papeles
+      ticks: 500, // Duración
+      gravity: 0.8, // Caen un poco más suavemente
+      startVelocity: 50, // Salen disparados hacia arriba con más fuerza
+      colors: ["#FF0000", "#FFFFFF", "#0000FF", "#FFD700"],
     });
   };
 

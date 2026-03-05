@@ -1,0 +1,177 @@
+/* _combat.scss */
+
+.battle-menu {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pokemon-fighters {
+  font-size: 2rem;
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
+}
+
+.arena {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background-color: $bg-arena;
+  border-radius: 12px;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.2) !important;
+
+  gap: 100px;
+
+  @media (max-width: 600px) {
+    gap: 30px;
+    padding: 15px;
+  }
+}
+
+.winner-types {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.winner-text {
+  font-size: 1.5rem;
+
+  @media (max-width: 600px) {
+    font-size: 1.25rem;
+  }
+}
+
+.poke-nombre {
+  text-transform: capitalize;
+  font-weight: 800;
+}
+
+.poke-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+
+  @media (max-width: 600px) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Iconos de Tipos */
+.poke-types-container {
+  padding: 5px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.poke-icon {
+  border-radius: 100%;
+  margin: 0;
+  margin-bottom: 5px;
+  transition: 200ms all;
+  display: flex;
+
+  height: 30px;
+  width: 30px;
+
+  &:hover {
+    filter: saturate(200%);
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  img {
+    height: 60%;
+    width: 60%;
+    margin: auto;
+  }
+
+  // poke-icon.bug
+  &.bug {
+    background: #92bc2c;
+    box-shadow: 0 0 12px #92bc2c;
+  }
+  &.dark {
+    background: #595761;
+    box-shadow: 0 0 12px #595761;
+  }
+  &.dragon {
+    background: #0c69c8;
+    box-shadow: 0 0 12px #0c69c8;
+  }
+  &.electric {
+    background: #f2d94e;
+    box-shadow: 0 0 12px #f2d94e;
+  }
+  &.fire {
+    background: #fba54c;
+    box-shadow: 0 0 12px #fba54c;
+  }
+  &.fairy {
+    background: #ee90e6;
+    box-shadow: 0 0 12px #ee90e6;
+  }
+  &.fighting {
+    background: #d3425f;
+    box-shadow: 0 0 12px #d3425f;
+  }
+  &.flying {
+    background: #a1bbec;
+    box-shadow: 0 0 12px #a1bbec;
+  }
+  &.ghost {
+    background: #5f6dbc;
+    box-shadow: 0 0 12px #5f6dbc;
+  }
+  &.grass {
+    background: #5fbd58;
+    box-shadow: 0 0 12px #5fbd58;
+  }
+  &.ground {
+    background: #da7c4d;
+    box-shadow: 0 0 12px #da7c4d;
+  }
+  &.ice {
+    background: #75d0c1;
+    box-shadow: 0 0 12px #75d0c1;
+  }
+  &.normal {
+    background: #a0a29f;
+    box-shadow: 0 0 12px #a0a29f;
+  }
+  &.poison {
+    background: #b763cf;
+    box-shadow: 0 0 12px #b763cf;
+  }
+  &.psychic {
+    background: #fa8581;
+    box-shadow: 0 0 12px #fa8581;
+  }
+  &.rock {
+    background: #c9bb8a;
+    box-shadow: 0 0 12px #c9bb8a;
+  }
+  &.steel {
+    background: #5695a3;
+    box-shadow: 0 0 12px #5695a3;
+  }
+  &.water {
+    background: #539ddf;
+    box-shadow: 0 0 12px #539ddf;
+  }
+}

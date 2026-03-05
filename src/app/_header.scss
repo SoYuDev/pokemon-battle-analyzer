@@ -1,0 +1,21 @@
+/* _header.scss */
+
+.main-header {
+  background: linear-gradient(135deg, $rojo-poke 0%, $rojo-oscuro 100%);
+  width: 100%;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-bottom: 8px solid $gris-oscuro; 
+  box-shadow: 0 10px 25px rgba($rojo-poke, 0.3);
+  margin-bottom: 2rem;
+
+  h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin: 0;
+    
+    @media (max-width: 600px) {
+      font-size: 1.8rem;
+    }
+  }
+}

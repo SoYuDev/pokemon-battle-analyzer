@@ -14,7 +14,7 @@ interface BattleState {
   pokemonWinner: Pokemon | null;
   pokemonWinnerArrayByType: (Pokemon | null)[];
   toggleFight: () => void;
-  setFightComputed: (computed: boolean) => void; // <-- NUEVO
+  setFightComputed: (computed: boolean) => void;
   // Las funciones async siempre devuelven una Promesa aunque no estemos devolviendo los Pokemon.
   fetchPokemons: () => Promise<void>;
   calculateWinner: () => void;

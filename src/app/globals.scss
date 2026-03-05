@@ -1,0 +1,9 @@
+/* src/app/globals.scss */
+
+@import "tailwindcss";
+
+/* Importamos los parciales (Sass detecta el guion bajo automáticamente) */
+@import 'variables';
+@import 'base';
+@import 'header';
+@import 'combat';
