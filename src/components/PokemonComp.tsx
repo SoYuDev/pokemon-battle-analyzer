@@ -21,7 +21,7 @@ export default function PokemonComp({
 
   return (
     <div>
-      <h1 className="poke-nombre">{parsedPokemon.name}</h1>
+      <p className="poke-nombre">{parsedPokemon.name}</p>
       <a
         href={`https://www.pokemon.com/us/pokedex/${parsedPokemon.name}`}
         target="_blank"

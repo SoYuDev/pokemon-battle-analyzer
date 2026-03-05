@@ -1,12 +1,17 @@
 @import "tailwindcss";
 
 body {
+  font-family: var(--font-press-start), monospace;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   gap: 20px;
+  padding: 60px 0;
+}
+
+h1 {
+  font-size: 1.75rem;
 }
 
 a {
@@ -16,9 +21,10 @@ a {
   justify-content: center;
 }
 
-header {
+.battle-menu {
   text-align: center;
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 20px;
 }
@@ -73,7 +79,24 @@ button:active:not(:disabled) {
 .poke-image {
   width: 120px;
   height: 120px;
-  object-fit: contain;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+.arena {
+  padding: 20px;
+  background-color: rgb(234, 240, 246);
+  border-radius: 12px;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+h2 {
+  /* font-family: var(--font-press-start), monospace; */
+  font-size: 1.25rem;
+}
+
+.winner-text {
+  font-size: 1.5rem;
 }
 
 /* ---------------------------------------------------------------------------------------------- */

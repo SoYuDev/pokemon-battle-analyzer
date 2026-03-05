@@ -36,7 +36,7 @@ export default function PokemonCombat() {
 
   return (
     <>
-      <header>
+      <div className="battle-menu">
         <button
           onClick={fetchPokemons}
           style={{ backgroundColor: isFighting ? "red" : "white" }}
@@ -44,17 +44,18 @@ export default function PokemonCombat() {
         >
           Start New Battle
         </button>
-        <h1>
+        <h2 className="pokemon-fighters">
           {pokemonArrayToCombat.map((poke, index) => (
             <span className="poke-nombre" key={poke?.id}>
               {poke?.name}
+              {/* El index es por si tuviesemos más de dos pokemons que se pelearan */}
               {index < pokemonArrayToCombat.length - 1 ? " vs " : ""}
             </span>
           ))}
-        </h1>
-      </header>
+        </h2>
+      </div>
 
-      <main>
+      <main className="arena">
         {pokemonArrayToCombat.length > 0 ? (
           pokemonArrayToCombat.map((poke) => {
             if (!poke) return null;
@@ -77,8 +78,8 @@ export default function PokemonCombat() {
 
       {/* Usamos el isFightComputed de la Store Global */}
       {isFightComputed ? (
-        <div>
-          <p>
+        <div className="combat-results">
+          <p className="winner-text">
             The winner is{" "}
             <span className="poke-nombre">{pokemonWinner?.name}</span>
           </p>
